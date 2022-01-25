@@ -2,8 +2,16 @@
 // http://localhost:3000/isolated/exercise/01.js
 
 import * as React from 'react'
-// 💣 remove this import
-import Globe from '../globe'
+
+function importGlobe () {
+  return import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "prefetched" */
+    '../globe'
+  )
+}
+
+const Globe = React.lazy(importGlobe);
 
 // 🐨 use React.lazy to create a Globe component which uses a dynamic import
 // to get the Globe component from the '../globe' module.
@@ -26,7 +34,7 @@ function App() {
         padding: '2rem',
       }}
     >
-      <label style={{marginBottom: '1rem'}}>
+      <label style={{marginBottom: '1rem'}} >
         <input
           type="checkbox"
           checked={showGlobe}
@@ -35,7 +43,9 @@ function App() {
         {' show globe'}
       </label>
       <div style={{width: 400, height: 400}}>
-        {showGlobe ? <Globe /> : null}
+        <React.Suspense fallback={<div>'...loading'</div>}>
+          {showGlobe ? <Globe /> : null}
+        </React.Suspense>
       </div>
     </div>
   )
