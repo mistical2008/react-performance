@@ -16,7 +16,6 @@ function Menu({
   return (
     <ul {...getMenuProps()}>
       {items.map((item, index) => { 
-
         return (
           <ListItem
             key={item.id}
