@@ -89,14 +89,11 @@ function App() {
 
   const listRef = React.useRef()
   const rowVirtualizer = useVirtual({
-     size: 10000,
+     size: items.length,
      parentRef: listRef,
      estimateSize: React.useCallback(() => 20, []),
      overscan: 10,
    })
-   console.log({rowVirtualizer})
-
- 
 
   const {
     selectedItem,
